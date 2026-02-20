@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>About</title>
+    <title>Home</title>
 </head>
 <body>
     <nav>
@@ -12,7 +12,13 @@
             <li><a href="{% url 'contact' %}">Contact</a></li>
         </ul>
     </nav>
-    <h1>About</h1>
-    <p>This is the contact page.</p>
+    <h1>Home</h1>
+    <p>This is the home page.</p>
+    {% if result.id %}
+    <p>Task ID: {{result.id}}</p>
+    <a href="{% url "check_result" result.id %}">
+        Check Task Result
+    </a>
+    {% endif %}
 </body>
 </html>
