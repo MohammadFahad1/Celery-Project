@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp'
+    'myapp',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -129,5 +130,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery settings
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+# CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'django-db'
 CELERY_TIMEZONE = "Asia/Dhaka"
+CELERY_RESULT_EXTENDED=True
+
+# Method-1 for periodic tasks using Beat
+CELERY_BEAT_SCHEDULE = {
+    'every-10-seconds': {
+        'task': 'myapp.tasks.clear_session_cache',
+        'schedule': 10,
+        'args': ('1',)
+    }
+    # Add more periodic tasks as needed
+}
