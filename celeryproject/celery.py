@@ -22,6 +22,14 @@ def add(x, y):
     sleep(10)
     return x + y
 
+# Method-2 of using beat schedule
+app.conf.beat_schedule = {
+    'clear-session-cache': {
+        'task': 'myapp.tasks.clear_session_cache',
+        'schedule': 10,
+    },
+}
+
 # @app.task(bind=True, ignore_result=True)
 # def debug_task(self):
 #     print(f'Request: {self.request!r}')
